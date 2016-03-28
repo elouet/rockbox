@@ -375,6 +375,10 @@ $releasenotes="/wiki/ReleaseNotes313";
         name => 'Creative Zen Mozaic',
         status => 1
     },
+    'xduoox3' => {
+        name => 'xDuoo X3',
+        status => 1,
+    },
 );
 
 sub manualname {
