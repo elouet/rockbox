@@ -167,6 +167,7 @@
 #define SAMSUNG_YH92X_PAD  62
 #define DX50_PAD           63
 #define XDUOO_X3_PAD       64
+#define IHIFI2_PAD         65
 
 /* CONFIG_REMOTE_KEYPAD */
 #define H100_REMOTE   1
@@ -280,6 +281,7 @@
 #define LCD_CREATIVEZENXFISTYLE 61 /* as used by Creative Zen X-Fi Style */
 #define LCD_SAMSUNGYPR1   62 /* as used by Samsung YP-R1 */
 #define LCD_XDUOOX3       63 /* as used by the xDuoo X3 */
+#define LCD_IHIFI2        64 /* as used by IHIFI 770C/800 */
 
 /* LCD_PIXELFORMAT */
 #define HORIZONTAL_PACKING 1
@@ -575,6 +577,10 @@ Lyre prototype 1 */
 #include "config/samsungypz5.h"
 #elif defined(IHIFI760)
 #include "config/ihifi760.h"
+#elif defined(IHIFI770C)
+#include "config/ihifi770c.h"
+#elif defined(IHIFI800)
+#include "config/ihifi800.h"
 #elif defined(IHIFI960)
 #include "config/ihifi960.h"
 #elif defined(CREATIVE_ZENXFISTYLE)

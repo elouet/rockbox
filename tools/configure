@@ -1409,7 +1409,7 @@ cat <<EOF
  141) YH-920              171) HD300             130) Lyre proto 1
  142) YH-925                                     131) Mini2440
  143) YP-S3
- 144) YP-Z5 ==ROCKCHIP==
+ 144) YP-Z5               ==ROCKCHIP==
                           180) rk27xx generic    ==HiFiMAN==
  ==Application==                                 190) HM-60x
  200) SDL                 ==HiFi E.T.==          191) HM-801
@@ -1421,8 +1421,8 @@ cat <<EOF
  206) Android MIPS        ==IHIFI==              ==iBasso==
  207) Android x86         230) 760               232) DX50
  208) Samsung YP-R1       231) 960               233) DX90
-
- ==xDuoo==
+                          250) 770C
+ ==xDuoo==                251) 800
  240) X3
 
 
@@ -3897,6 +3897,52 @@ fi
     t_cpu="mips"
     t_manufacturer="ingenic_jz47xx"
     t_model="xduoo_x3"
+    ;;
+
+   250|ihifi770c)
+    target_id=97
+    modelname="ihifi770c"
+    target="IHIFI770C"
+    memory=16
+    arm7ejscc
+    tool="$rootdir/tools/scramble -rkw -modelnum=97"
+    bmp2rb_mono="$rootdir/tools/bmp2rb -f 0"
+    bmp2rb_native="$rootdir/tools/bmp2rb -f 4"
+    output="rockbox.rkw"
+    bootoutput="bootloader.rkw"
+    appextra="recorder:gui"
+    plugins="yes"
+    swcodec="yes"
+    # toolset is the tools within the tools directory that we build for
+    # this particular target.
+    toolset="$genericbitmaptools"
+    # architecture, manufacturer and model for the target-tree build
+    t_cpu="arm"
+    t_manufacturer="rk27xx"
+    t_model="ihifi2"
+    ;;
+
+   251|ihifi800)
+    target_id=98
+    modelname="ihifi800"
+    target="IHIFI800"
+    memory=16
+    arm7ejscc
+    tool="$rootdir/tools/scramble -rkw -modelnum=98"
+    bmp2rb_mono="$rootdir/tools/bmp2rb -f 0"
+    bmp2rb_native="$rootdir/tools/bmp2rb -f 4"
+    output="rockbox.rkw"
+    bootoutput="bootloader.rkw"
+    appextra="recorder:gui"
+    plugins="yes"
+    swcodec="yes"
+    # toolset is the tools within the tools directory that we build for
+    # this particular target.
+    toolset="$genericbitmaptools"
+    # architecture, manufacturer and model for the target-tree build
+    t_cpu="arm"
+    t_manufacturer="rk27xx"
+    t_model="ihifi2"
     ;;
 
    *)
