@@ -255,7 +255,7 @@ simcc () {
  if [ "$win32crosscompile" = "yes" ]; then
    # We are crosscompiling
    # add cross-compiler option(s)
-   LDOPTS="$LDOPTS -mconsole"
+   LDOPTS="$LDOPTS -mconsole -static"
    output="$output.exe"
    winbuild="yes"
    CROSS_COMPILE=${CROSS_COMPILE:-"i586-mingw32msvc-"}
@@ -339,13 +339,18 @@ simcc () {
         echo "don't have SDL (properly) installed. Please correct and"
         echo "re-run configure!"
         exit 2
-    else 
+    else
         # generic sdl-config checker
         GCCOPTS="$GCCOPTS `$sdl --cflags`"
-        LDOPTS="$LDOPTS `$sdl --libs`"
+        if sdl-config --static-libs > /dev/null 2>&1 ; then
+            LDOPTS="$LDOPTS `$sdl --static-libs`"
+        else
+            echo "Your sdl-config does not know about static libs, falling back to shared library"
+            LDOPTS="$LDOPTS `$sdl --libs`"
+        fi
     fi
  fi
- 
+
 
  GCCOPTS="$GCCOPTS -I\$(SIMDIR)"
  # x86_64 supports MMX by default
@@ -748,7 +753,15 @@ androidndkcc()
     fi
 
     buildhost=$(uname -s | tr "[:upper:]" "[:lower:]")
-    buildhost="${buildhost}-$(uname -m)"
+    # the prebuild android NDK only supports intel architecture anyway, so we can take shortcuts
+    case $(getconf LONG_BIT) in
+        32)
+            buildhost="${buildhost}-x86"
+            ;;
+        64)
+            buildhost="${buildhost}-x86_64"
+            ;;
+    esac
 
     GCCOPTS=`echo $CCOPTS | sed -e s/-ffreestanding// -e s/-nostdlib// -e s/-Wundef//`
     LDOPTS="$LDOPTS -ldl -llog"

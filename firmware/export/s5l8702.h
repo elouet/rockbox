@@ -711,9 +711,10 @@
 
 
 /////UART/////
-/* UC8702 uart controller */
-#define S5L8702_UART_BASE       0x3cc00000
-#define S5L8702_UART_PORT_MAX   4
+/* s5l8702 UC870X HW: 1 UARTC, 4 ports */
+#define UARTC_BASE_ADDR     0x3CC00000
+#define UARTC_N_PORTS       4
+#define UARTC_PORT_OFFSET   0x4000
 
 
 /////CLOCK GATES/////
@@ -737,7 +738,7 @@
 #define CLOCKGATE_TIMER     37
 #define CLOCKGATE_I2C1      38
 #define CLOCKGATE_I2S0      39
-#define CLOCKGATE_UART      41
+#define CLOCKGATE_UARTC     41
 #define CLOCKGATE_I2S1      42
 #define CLOCKGATE_SPI1      43
 #define CLOCKGATE_GPIO      44
@@ -749,18 +750,20 @@
 /////INTERRUPTS/////
 #define IRQ_TIMER32     7
 #define IRQ_TIMER       8
-#define IRQ_SPI(i)      (9+i) /* TBC */
+#define IRQ_SPI(i)      (9+(i)) /* TBC */
 #define IRQ_SPI0        9
 #define IRQ_SPI1        10
 #define IRQ_SPI2        11
 #define IRQ_LCD         14
-#define IRQ_DMAC(d)     (16+d)
+#define IRQ_DMAC(d)     (16+(d))
 #define IRQ_DMAC0       16
 #define IRQ_DMAC1       17
 #define IRQ_USB_FUNC    19
-#define IRQ_I2C         21    /* TBC */
+#define IRQ_I2C(i)      (21+(i))
+#define IRQ_I2C0        21
+#define IRQ_I2C1        22
 #define IRQ_WHEEL       23
-#define IRQ_UART(i)     (24+i)
+#define IRQ_UART(i)     (24+(i))
 #define IRQ_UART0       24
 #define IRQ_UART1       25
 #define IRQ_UART2       26
