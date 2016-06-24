@@ -167,7 +167,8 @@
 #define SAMSUNG_YH92X_PAD  62
 #define DX50_PAD           63
 #define XDUOO_X3_PAD       64
-#define IHIFI2_PAD         65
+#define IHIFI_770_PAD      65
+#define IHIFI_800_PAD      66
 
 /* CONFIG_REMOTE_KEYPAD */
 #define H100_REMOTE   1
@@ -281,7 +282,9 @@
 #define LCD_CREATIVEZENXFISTYLE 61 /* as used by Creative Zen X-Fi Style */
 #define LCD_SAMSUNGYPR1   62 /* as used by Samsung YP-R1 */
 #define LCD_XDUOOX3       63 /* as used by the xDuoo X3 */
-#define LCD_IHIFI2        64 /* as used by IHIFI 770C/800 */
+#define LCD_IHIFI770      64 /* as used by IHIFI 770 */
+#define LCD_IHIFI770C     65 /* as used by IHIFI 770C */
+#define LCD_IHIFI800      66 /* as used by IHIFI 800 */
 
 /* LCD_PIXELFORMAT */
 #define HORIZONTAL_PACKING 1
@@ -577,6 +580,8 @@ Lyre prototype 1 */
 #include "config/samsungypz5.h"
 #elif defined(IHIFI760)
 #include "config/ihifi760.h"
+#elif defined(IHIFI770)
+#include "config/ihifi770.h"
 #elif defined(IHIFI770C)
 #include "config/ihifi770c.h"
 #elif defined(IHIFI800)
@@ -922,7 +927,6 @@ Lyre prototype 1 */
 #define USB_STATUS_BY_EVENT
 #define USB_DETECT_BY_REQUEST
 #elif CONFIG_USBOTG == USBOTG_RK27XX
-#define USB_STATUS_BY_EVENT
 #define USB_DETECT_BY_REQUEST
 #endif /* CONFIG_USB == */
 #endif /* HAVE_USBSTACK */
@@ -1144,7 +1148,7 @@ Lyre prototype 1 */
 #endif /* HAVE_GUI_BOOST && HAVE_ADJUSTABLE_CPU_FREQ */
 
 #ifndef SIMULATOR
-#if defined(HAVE_USBSTACK) || (CONFIG_STORAGE & STORAGE_NAND)
+#if defined(HAVE_USBSTACK) || (CONFIG_STORAGE & STORAGE_NAND) || (CONFIG_STORAGE & STORAGE_RAMDISK)
 #define STORAGE_GET_INFO
 #endif
 #endif
@@ -1161,7 +1165,8 @@ Lyre prototype 1 */
     (CONFIG_USBOTG == USBOTG_JZ4740) || \
     (CONFIG_USBOTG == USBOTG_JZ4760) || \
     (CONFIG_USBOTG == USBOTG_M66591) || \
-    (CONFIG_USBOTG == USBOTG_AS3525)
+    (CONFIG_USBOTG == USBOTG_AS3525) || \
+    (CONFIG_USBOTG == USBOTG_RK27XX)
 #define USB_HAS_BULK
 #define USB_HAS_INTERRUPT
 #elif defined(CPU_TCC780X) || defined(CPU_TCC77X)

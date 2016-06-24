@@ -306,8 +306,10 @@ keymaps/keymap-nwz.c
 keymaps/keymap-ypz5.c
 #elif CONFIG_KEYPAD == IHIFI_PAD
 keymaps/keymap-ihifi.c
-#elif CONFIG_KEYPAD == IHIFI2_PAD
-keymaps/keymap-ihifi2.c
+#elif CONFIG_KEYPAD == IHIFI_770_PAD
+keymaps/keymap-ihifi770.c
+#elif CONFIG_KEYPAD == IHIFI_800_PAD
+keymaps/keymap-ihifi800.c
 #elif CONFIG_KEYPAD == SAMSUNG_YPR1_PAD
 keymaps/keymap-ypr1.c
 #elif CONFIG_KEYPAD == DX50_PAD

@@ -114,8 +114,10 @@ struct sound_settings_info
 #include "df1704.h"
 #elif defined(HAVE_PCM1792_CODEC)
 #include "pcm1792.h"
-#elif defined(HAVE_CS4398_CODEC)
+#elif defined(HAVE_CS4398)
 #include "cs4398.h"
+#elif defined(HAVE_ES9018)
+#include "es9018.h"
 #elif (CONFIG_PLATFORM & (PLATFORM_ANDROID | PLATFORM_MAEMO\
        | PLATFORM_PANDORA | PLATFORM_SDL))
 #include "hosted_codec.h"
@@ -478,7 +480,7 @@ void audiohw_set_depth_3d(int val);
 #ifdef AUDIOHW_HAVE_FILTER_ROLL_OFF
 /**
  * Set DAC's oversampling filter roll-off.
- * @param val 0 - sharp roll-off, 1 - slow roll-off.
+ * @param val 0 - sharp roll-off, 1 - slow roll-off, 2 - short roll-off, 3 - bypass.
  * NOTE: AUDIOHW_CAPS need to contain
  *          FILTER_ROLL_OFF_CAP
  */
@@ -494,7 +496,6 @@ void audiohw_set_filter_roll_off(int val);
  */
 void audiohw_set_functional_mode(int val);
 #endif
-
 
 void audiohw_set_frequency(int fsel);
 
