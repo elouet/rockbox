@@ -73,6 +73,10 @@
 /* Define this if you can detect headphones */
 #define HAVE_HEADPHONE_DETECTION
 
+/* Xduoo X3 has separate line out port that mandates specific volume control 
+   tasks when connection is detected */
+#define HAVE_LINE_OUT
+
 #define CONFIG_KEYPAD XDUOO_X3_PAD
 
 /* Define this if a programmable hotkey is mapped */

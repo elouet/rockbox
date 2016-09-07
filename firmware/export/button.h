@@ -71,6 +71,9 @@ void set_remote_backlight_filter_keypress(bool value);
 
 #ifdef HAVE_HEADPHONE_DETECTION
 bool headphones_inserted(void);
+#ifdef HAVE_LINE_OUT
+bool line_out_inserted(void);
+#endif
 #endif
 #ifdef HAVE_WHEEL_POSITION
 int wheel_status(void);

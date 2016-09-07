@@ -523,6 +523,21 @@ static void unplug_change(bool inserted)
         }
     }
 }
+
+#ifdef HAVE_LINE_OUT
+static void unplug_lineout_change(bool inserted)
+{
+    if (global_settings.unplug_mode)
+    {
+        int audio_stat = audio_status();
+        if (inserted)
+        {
+        } else {
+            backlight_on();
+        }
+    }
+}
+#endif
 #endif
 
 long default_event_handler_ex(long event, void (*callback)(void *), void *parameter)
@@ -610,6 +625,15 @@ long default_event_handler_ex(long event, void (*callback)(void *), void *parame
         case SYS_PHONE_UNPLUGGED:
             unplug_change(false);
             return SYS_PHONE_UNPLUGGED;
+#ifdef HAVE_LINE_OUT
+        case SYS_LINE_OUT_PLUGGED:
+            unplug_lineout_change(true);
+            return SYS_LINE_OUT_PLUGGED;
+
+        case SYS_LINE_OUT_UNPLUGGED:
+            unplug_lineout_change(false);
+            return SYS_LINE_OUT_UNPLUGGED;
+#endif
 #endif
 #if CONFIG_PLATFORM & (PLATFORM_ANDROID|PLATFORM_MAEMO)
         /* stop playback if we receive a call */

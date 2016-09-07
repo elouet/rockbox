@@ -53,6 +53,11 @@ bool headphones_inserted(void)
     return (__gpio_get_pin(PIN_PH_DECT) != 0);
 }
 
+bool line_out_inserted(void)
+{
+    return (__gpio_get_pin(PIN_LO_DECT) != 0);
+}
+
 void button_init_device(void)
 {
     key_val = 0xfff;

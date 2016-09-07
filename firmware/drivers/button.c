@@ -58,6 +58,9 @@ static bool remote_filter_first_keypress;
 #endif /* HAVE_BACKLIGHT */
 #ifdef HAVE_HEADPHONE_DETECTION
 static bool phones_present = false;
+#ifdef HAVE_LINE_OUT
+static bool line_out_present = false;
+#endif
 #endif
 
 /* how long until repeat kicks in, in centiseconds */
@@ -107,6 +110,21 @@ static int btn_detect_callback(struct timeout *tmo)
     queue_post(&button_queue, id, 0);
     return 0;
 }
+
+#if defined(HAVE_LINE_OUT)
+static struct timeout lo_detect_timeout; /* Debouncer for headphone plug/unplug */
+/* This callback can be used for many different functions if needed -
+   just check to which object tmo points */
+static int btn_lo_detect_callback(struct timeout *tmo)
+{
+    /* Try to post only transistions */
+    const long id = tmo->data ? SYS_LINE_OUT_PLUGGED : SYS_LINE_OUT_UNPLUGGED;
+    queue_remove_from_head(&button_queue, id);
+    queue_post(&button_queue, id, 0);
+    return 0;
+}
+#endif
+
 #endif
 
 static bool button_try_post(int button, int data)
@@ -179,6 +197,17 @@ static void button_tick(void)
         timeout_register(&hp_detect_timeout, btn_detect_callback,
                          HZ/2, phones_present);
     }
+
+#if defined(HAVE_LINE_OUT)
+    if (line_out_inserted() != line_out_present)
+    {
+        /* Use the autoresetting oneshot to debounce the detection signal */
+        line_out_present = !line_out_present;
+        timeout_register(&lo_detect_timeout, btn_lo_detect_callback,
+                         HZ/2, line_out_present);
+    }
+#endif
+
 #endif
 
     /* Find out if a key has been released */
